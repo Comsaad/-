@@ -3,131 +3,459 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة نحو القمة - فيديوهات الصف الثالث المتوسط</title>
+    <title>منصة نحو القمة - الصف الثالث المتوسط</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #34a853;
+            --bg: #f0f4f8;
+            --card: #ffffff;
+            --text: #2c3e50;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
-            color: #333;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
             padding: 20px;
         }
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: var(--card);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
         }
-        h1, h2 {
-            color: #1a73e8;
-            text-align: center;
-        }
-        .term-section {
-            margin-bottom: 30px;
-        }
-        .video-list {
-            list-style: none;
-            padding: 0;
-        }
-        .video-item {
-            background: #f8f9fa;
-            margin-bottom: 12px;
-            padding: 15px;
-            border-radius: 8px;
-            border-right: 4px solid #1a73e8;
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: transform 0.2s;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        .video-item:hover {
-            transform: translateY(-2px);
-            background: #f1f3f4;
-        }
-        .video-title {
-            font-weight: 600;
-            font-size: 1.05rem;
-        }
-        .video-link {
-            background-color: #1a73e8;
+        h1 { color: var(--primary); margin: 0; font-size: 1.6rem; }
+        .btn {
+            background-color: var(--primary);
             color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: bold;
+            transition: 0.2s;
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: background-color 0.2s;
+            display: inline-block;
         }
-        .video-link:hover {
-            background-color: #1557b0;
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-teacher { background-color: #34495e; }
+        .btn-success { background-color: var(--secondary); }
+        
+        /* قسم تسجيل الطالبة */
+        .student-login {
+            background: #e8f0fe;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 25px;
         }
+        .student-login input {
+            padding: 10px 15px;
+            width: 280px;
+            max-width: 80%;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-left: 10px;
+        }
+
+        /* قائمة الدروس والأنشطة */
+        .term-title {
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+        .lesson-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #fafafa;
+        }
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .lesson-title { font-weight: bold; font-size: 1.1rem; color: #1a202c; }
+        .activity-box {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff;
+            border-right: 4px solid var(--secondary);
+            border-radius: 6px;
+            display: none;
+        }
+        .activity-box p { margin-top: 0; font-weight: bold; }
+        .options label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .options label:hover { background: #e9ecef; }
+
+        /* لوحة المعلمة */
+        #teacher-dashboard {
+            display: none;
+            background: #fff;
+            padding: 20px;
+            border: 2px solid #34495e;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th { background-color: #34495e; color: white; }
+        .badge-done { background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>منصة نحو القمة</h1>
-    <p style="text-align: center; color: #666;">محتوى دروس مهارات رقمية - الصف الثالث المتوسط</p>
+    <header>
+        <div>
+            <h1>منصة نحو القمة - مهارات رقمية</h1>
+            <small style="color: #666;">الصف الثالث المتوسط (الفصلين الأول والثاني)</small>
+        </div>
+        <button class="btn btn-teacher" onclick="toggleTeacherPanel()">👩‍🏫 لوحة المعلمة للمتابعة</button>
+    </header>
 
-    <!-- الفصل الدراسي الأول -->
-    <div class="term-section">
-        <h2>الفصل الدراسي الأول</h2>
-        <ul class="video-list">
-            <li class="video-item">
-                <span class="video-title">الدرس (1): مقدمة في الأمن السيبراني</span>
-                <a href="https://youtu.be/WXgfVRNDZlA" target="_blank" class="video-link">مشاهدة الدرس</a>
-            </li>
-            <li class="video-item">
-                <span class="video-title">الدرس (2): حماية الحاسب الشخصي</span>
-                <a href="https://youtu.be/GUMTVE_LdN0" target="_blank" class="video-link">مشاهدة الدرس</a>
-            </li>
-            <li class="video-item">
-                <span class="video-title">الدرس (1): إنشاء قواعد البيانات</span>
-                <a href="https://youtu.be/pbKE4D41gZ4" target="_blank" class="video-link">مشاهدة الدرس</a>
-            </li>
-            <li class="video-item">
-                <span class="video-title">الدرس (1): القوائم وصفوف البيانات</span>
-                <a href="https://youtu.be/zfIVZPD-HfY" target="_blank" class="video-link">مشاهدة الدرس</a>
-            </li>
-            <li class="video-item">
-                <span class="video-title">الدرس (2): المكتبات البرمجية</span>
-                <a href="https://youtu.be/Z7pdpOFGFa4" target="_blank" class="video-link">مشاهدة الدرس</a>
-            </li>
-            <li class="video-item">
-                <span class="video-title">الدرس (3): بناء الواجهات الرسومية بلغة البايثون</span>
-                <a href="https://youtu.be/4MNHkuO1fao" target="_blank" class="video-link">مشاهدة الدرس</a>
-            </li>
-        </ul>
+    <!-- قسم إدخال اسم الطالبة -->
+    <div class="student-login" id="login-section">
+        <h3>مرحباً بكِ طالبتي المبدعة 🌟</h3>
+        <p>يرجى كتابة اسمكِ الثلاثي للبدء في مشاهدة الدروس وحل الأنشطة:</p>
+        <input type="text" id="student-name-input" placeholder="اكتبي اسمكِ هنا...">
+        <button class="btn" onclick="saveStudentName()">دخول للمنصة</button>
     </div>
 
-    <!-- الفصل الدراسي الثاني -->
-    <div class="term-section">
-        <h2>الفصل الدراسي الثاني</h2>
-        <ul class="video-list">
-            <li class="video-item">
-                <span class="video-title">الدرس (1): مقدمة في التجارة الإلكترونية</span>
-                <a href="https://youtu.be/MZBEB5HC0ig" target="_blank" class="video-link">مشاهدة الدرس</a>
-            </li>
-            <li class="video-item">
-                <span class="video-title">الدرس (2): التعاملات عبر الإنترنت</span>
-                <a href="https://youtu.be/JP61Q-YxoyE" target="_blank" class="video-link">مشاهدة الدرس</a>
-            </li>
-            <li class="video-item">
-                <span class="video-title">الدرس (1): القواميس</span>
-                <a href="https://youtu.be/Gx60SxSi-p4" target="_blank" class="video-link">مشاهدة الدرس</a>
-            </li>
-            <li class="video-item">
-                <span class="video-title">الدرس (2): القوائم المتداخلة</span>
-                <a href="https://youtu.be/SML3rHygJPY" target="_blank" class="video-link">مشاهدة الدرس</a>
-            </li>
-            <li class="video-item">
-                <span class="video-title">الدرس (3): الملفات</span>
-                <a href="https://youtu.be/R6HNVETTKCA" target="_blank" class="video-link">مشاهدة الدرس</a>
-            </li>
-        </ul>
+    <div id="welcome-banner" style="display:none; background:#d4edda; color:#155724; padding:12px; border-radius:8px; margin-bottom:20px; font-weight:bold; text-align:center;">
+        أهلاً بكِ يا <span id="display-student-name"></span>! استمتعي بالتعلم وحل الأنشطة.
+    </div>
+
+    <!-- محتوى الدروس والأنشطة -->
+    <div id="lessons-container"></div>
+
+    <!-- لوحة المعلمة للمتابعة -->
+    <div id="teacher-dashboard">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2>📊 سجل متابعة الطالبات</h2>
+            <div>
+                <button class="btn btn-success" onclick="exportToCSV()">📥 تصدير Excel</button>
+                <button class="btn" style="background:#e74c3c;" onclick="clearRecords()">🗑️ مسح السجل</button>
+                <button class="btn btn-teacher" onclick="closeTeacherPanel()">إغلاق</button>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>اسم الطالبة</th>
+                    <th>الدرس والنشاط</th>
+                    <th>النتيجة</th>
+                    <th>وقت الإنجاز</th>
+                </tr>
+            </thead>
+            <tbody id="records-table-body">
+                <!-- تضاف السجلات هنا تلقائياً -->
+            </tbody>
+        </table>
     </div>
 </div>
+
+<script>
+    // بيانات الدروس والروابط والأنشطة التفاعلية
+    const curriculum = [
+        {
+            term: "الفصل الدراسي الأول",
+            lessons: [
+                {
+                    id: "t1_1",
+                    title: "الدرس (1): مقدمة في الأمن السيبراني",
+                    video: "https://youtu.be/WXgfVRNDZlA",
+                    question: "ما الهدف الأساسي من الأمن السيبراني؟",
+                    options: ["حماية الأنظمة والشبكات والبيانات من الهجمات الرقمية", "زيادة سرعة الإنترنت فقط", "تصميم الألعاب الإلكترونية"],
+                    correct: 0
+                },
+                {
+                    id: "t1_2",
+                    title: "الدرس (2): حماية الحاسب الشخصي",
+                    video: "https://youtu.be/GUMTVE_LdN0",
+                    question: "أي مما يلي يعد من أفضل الممارسات لحماية حاسبك؟",
+                    options: ["استخدام كلمة مرور سهلة مثل 1234", "تحديث نظام التشغيل وبرامج مكافحة الفيروسات باستمرار", "فتح جميع الروابط المجهولة"],
+                    correct: 1
+                },
+                {
+                    id: "t1_3",
+                    title: "الدرس (1): إنشاء قواعد البيانات",
+                    video: "https://youtu.be/pbKE4D41gZ4",
+                    question: "ما العنصر الأساسي الذي تُخزن فيه البيانات داخل قاعدة البيانات؟",
+                    options: ["الجداول (Tables)", "الصور", "المقاطع الصوتية"],
+                    correct: 0
+                },
+                {
+                    id: "t1_4",
+                    title: "الدرس (1): القوائم وصفوف البيانات",
+                    video: "https://youtu.be/zfIVZPD-HfY",
+                    question: "في لغة بايثون، تُكتب عناصر القائمة (List) بين:",
+                    options: ["أقواس مربعة [ ]", "علامتي تنصيص \" \"", "أقواس متعرجة { }"],
+                    correct: 0
+                },
+                {
+                    id: "t1_5",
+                    title: "الدرس (2): المكتبات البرمجية",
+                    video: "https://youtu.be/Z7pdpOFGFa4",
+                    question: "ما الأمر المستخدم لاستدعاء مكتبة برمجية في بايثون؟",
+                    options: ["print", "import", "input"],
+                    correct: 1
+                },
+                {
+                    id: "t1_6",
+                    title: "الدرس (3): بناء الواجهات الرسومية بلغة البايثون",
+                    video: "https://youtu.be/4MNHkuO1fao",
+                    question: "ما المكتبة القياسية الأشهر لبناء الواجهات الرسومية (GUI) في بايثون؟",
+                    options: ["Tkinter", "Math", "Random"],
+                    correct: 0
+                }
+            ]
+        },
+        {
+            term: "الفصل الدراسي الثاني",
+            lessons: [
+                {
+                    id: "t2_1",
+                    title: "الدرس (1): مقدمة في التجارة الإلكترونية",
+                    video: "https://youtu.be/MZBEB5HC0ig",
+                    question: "تُعرف عملية بيع وشراء المنتجات عبر الإنترنت بـ:",
+                    options: ["التجارة الإلكترونية", "البرمجة الهيكلية", "الشبكات المحلية"],
+                    correct: 0
+                },
+                {
+                    id: "t2_2",
+                    title: "الدرس (2): التعاملات عبر الإنترنت",
+                    video: "https://youtu.be/JP61Q-YxoyE",
+                    question: "علامة وجود بروتوكول الأمان في المتاجر الإلكترونية هي:",
+                    options: ["http://", "https:// مع رمز القفل", "www."],
+                    correct: 1
+                },
+                {
+                    id: "t2_3",
+                    title: "الدرس (1): القواميس (Dictionaries)",
+                    video: "https://youtu.be/Gx60SxSi-p4",
+                    question: "تُخزن البيانات في القاموس (Dictionary) في بايثون على شكل:",
+                    options: ["مفتاح وقيمة (Key: Value)", "أرقام متسلسلة فقط", "نصوص بدون فواصل"],
+                    correct: 0
+                },
+                {
+                    id: "t2_4",
+                    title: "الدرس (2): القوائم المتداخلة",
+                    video: "https://youtu.be/SML3rHygJPY",
+                    question: "القائمة المتداخلة (Nested List) هي:",
+                    options: ["قائمة تحتوي بداخلها على قوائم أخرى", "قائمة فارغة تماماً", "قائمة لا تقبل الأرقام"],
+                    correct: 0
+                },
+                {
+                    id: "t2_5",
+                    title: "الدرس (3): الملفات",
+                    video: "https://youtu.be/R6HNVETTKCA",
+                    question: "ما الدالة المستخدمة لفتح ملف في لغة بايثون؟",
+                    options: ["open()", "close()", "read()"],
+                    correct: 0
+                }
+            ]
+        }
+    ];
+
+    let currentStudent = "";
+
+    function saveStudentName() {
+        const nameInput = document.getElementById("student-name-input").value.trim();
+        if (!nameInput) {
+            alert("يرجى كتابة اسمكِ أولاً!");
+            return;
+        }
+        currentStudent = nameInput;
+        document.getElementById("display-student-name").innerText = currentStudent;
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("welcome-banner").style.display = "block";
+    }
+
+    function renderLessons() {
+        const container = document.getElementById("lessons-container");
+        container.innerHTML = "";
+
+        curriculum.forEach(section => {
+            const termHeader = document.createElement("h2");
+            termHeader.className = "term-title";
+            termHeader.innerText = section.term;
+            container.appendChild(termHeader);
+
+            section.lessons.forEach(lesson => {
+                const card = document.createElement("div");
+                card.className = "lesson-card";
+
+                let optionsHtml = "";
+                lesson.options.forEach((opt, idx) => {
+                    optionsHtml += `
+                        <label>
+                            <input type="radio" name="q_${lesson.id}" value="${idx}"> ${opt}
+                        </label>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="lesson-header">
+                        <span class="lesson-title">${lesson.title}</span>
+                        <div>
+                            <a href="${lesson.video}" target="_blank" class="btn">▶️ مشاهدة الفيديو</a>
+                            <button class="btn btn-success" onclick="toggleActivity('${lesson.id}')">📝 حل النشاط</button>
+                        </div>
+                    </div>
+                    <div class="activity-box" id="act_${lesson.id}">
+                        <p>سؤال النشاط: ${lesson.question}</p>
+                        <div class="options">${optionsHtml}</div>
+                        <button class="btn" style="margin-top:10px;" onclick="submitActivity('${lesson.id}', '${lesson.title}', ${lesson.correct})">إرسال الإجابة</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        });
+    }
+
+    function toggleActivity(id) {
+        if (!currentStudent) {
+            alert("يرجى كتابة اسمكِ في الأعلى قبل بدء النشاط!");
+            document.getElementById("student-name-input").focus();
+            return;
+        }
+        const box = document.getElementById("act_" + id);
+        box.style.display = box.style.display === "block" ? "none" : "block";
+    }
+
+    function submitActivity(id, title, correctIndex) {
+        const selected = document.querySelector(`input[name="q_${id}"]:checked`);
+        if (!selected) {
+            alert("يرجى اختيار إجابة أولاً!");
+            return;
+        }
+
+        const isCorrect = parseInt(selected.value) === correctIndex;
+        const resultText = isCorrect ? "إجابة صحيحة (ممتازة 🌟)" : "تحتاج مراجعة";
+
+        if (isCorrect) {
+            confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+            alert("أحسنتِ يا " + currentStudent + "! إجابة صحيحة.");
+        } else {
+            alert("حاولي مرة أخرى بعد مراجعة الفيديو يا " + currentStudent + ".");
+        }
+
+        const records = JSON.parse(localStorage.getItem("teacher_records") || "[]");
+        records.push({
+            student: currentStudent,
+            lesson: title,
+            result: resultText,
+            time: new Date().toLocaleString('ar-SA')
+        });
+        localStorage.setItem("teacher_records", JSON.stringify(records));
+    }
+
+    // لوحة المعلمة محمية بكلمة المرور الجديدة (1446)
+    function toggleTeacherPanel() {
+        const pass = prompt("أدخلي كلمة مرور المعلمة:");
+        if (pass === null) return;
+
+        // كلمة المرور 1446 مشفرة داخل الكود
+        const encryptedPass = "MTQ0Ng=="; 
+
+        if (btoa(pass) === encryptedPass) {
+            loadRecords();
+            document.getElementById("teacher-dashboard").style.display = "block";
+            document.getElementById("teacher-dashboard").scrollIntoView({ behavior: 'smooth' });
+        } else {
+            alert("كلمة المرور غير صحيحة! هذه اللوحة مخصصة للمعلمة فقط.");
+        }
+    }
+
+    function closeTeacherPanel() {
+        document.getElementById("teacher-dashboard").style.display = "none";
+    }
+
+    function loadRecords() {
+        const records = JSON.parse(localStorage.getItem("teacher_records") || "[]");
+        const tbody = document.getElementById("records-table-body");
+        tbody.innerHTML = "";
+
+        if (records.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4">لا توجد مشاركات مسجلة حتى الآن.</td></tr>`;
+            return;
+        }
+
+        records.forEach(rec => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${rec.student}</td>
+                <td>${rec.lesson}</td>
+                <td><span class="badge-done">${rec.result}</span></td>
+                <td>${rec.time}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function exportToCSV() {
+        const records = JSON.parse(localStorage.getItem("teacher_records") || "[]");
+        if (records.length === 0) {
+            alert("لا توجد بيانات لتصديرها.");
+            return;
+        }
+        let csvContent = "\uFEFFاسم الطالبة,الدرس والنشاط,النتيجة,وقت الإنجاز\n";
+        records.forEach(r => {
+            csvContent += `"${r.student}","${r.lesson}","${r.result}","${r.time}"\n`;
+        });
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "تقرير_متابعة_الطالبات.csv";
+        link.click();
+    }
+
+    function clearRecords() {
+        if (confirm("هل أنتِ متأكدة من مسح جميع سجلات الطالبات؟")) {
+            localStorage.removeItem("teacher_records");
+            loadRecords();
+        }
+    }
+
+    renderLessons();
+</script>
 
 </body>
 </html>
