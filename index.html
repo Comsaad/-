@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة نحو القمة - المهارات الرقمية (الصف الثالث المتوسط)</title>
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #198754;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+        }
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .semester-title {
+            color: #2c3e50;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+        .units-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .unit-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 5px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .unit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .unit-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        .unit-card ul {
+            padding-right: 20px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .unit-card li {
+            margin-bottom: 0.5rem;
+        }
+        .unit-card a.video-link {
+            display: block;
+            background-color: #f1f3f5;
+            color: #495057;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-top: 0.4rem;
+            transition: background 0.2s, color 0.2s;
+            border-right: 3px solid #ced4da;
+        }
+        .unit-card a.video-link:hover {
+            background-color: #e9ecef;
+            color: var(--primary-color);
+            border-right-color: var(--primary-color);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #343a40;
+            color: white;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>منصة نحو القمة التعليمية</h1>
+        <p>مقرر المهارات الرقمية - الصف الثالث المتوسط (الفصول الدراسية)</p>
+    </header>
+
+    <div class="container">
+
+        <!-- الفصل الدراسي الأول -->
+        <h2 class="semester-title">📚 الفصل الدراسي الأول</h2>
+        <div class="units-grid">
+            
+            <!-- الوحدة الأولى: الأمن السيبراني -->
+            <div class="unit-card" style="border-top-color: #d63384;">
+                <div>
+                    <h3>الوحدة الأولى: الأمن السيبراني</h3>
+                    <p>مفاهيم الأمن السيبراني، مثلث الحماية، والوقاية من الجرائم الإلكترونية[cite: 135].</p>
+                    <ul>
+                        <li><strong>الدرس الأول:</strong> مقدمة في الأمن السيبراني</li>
+                        <a href="https://youtu.be/WXgfVRNDZlA?si=ga_DC9gxGKX69u1_" class="video-link" target="_blank">📺 مشاهدة شرح الدرس الأول</a>
+                        <li><strong>الدرس الثاني:</strong> حماية الحاسب الشخصي والبيانات</li>
+                        <a href="https://youtu.be/GUMTVE_LdN0?si=1nIPNod0M3WAN70t" class="video-link" target="_blank">📺 مشاهدة شرح الدرس الثاني</a>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- الوحدة الثانية: قواعد البيانات -->
+            <div class="unit-card" style="border-top-color: #fd7e14;">
+                <div>
+                    <h3>الوحدة الثانية: قواعد البيانات</h3>
+                    <p>تصميم الجداول، المفاتيح الأساسية، والعلاقات باستخدام Microsoft Access[cite: 166].</p>
+                    <ul>
+                        <li><strong>الدرس الأول:</strong> إنشاء قواعد البيانات والجداول</li>
+                        <a href="https://youtu.be/pbKE4D41gZ4?si=bWM1dsRfWxqCs3eN" class="video-link" target="_blank">📺 مشاهدة شرح الدرس الأول</a>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- الوحدة الثالثة: البرمجة بلغة بايثون (1) -->
+            <div class="unit-card" style="border-top-color: #0dcaf0;">
+                <div>
+                    <h3>الوحدة الثالثة: البرمجة مع بايثون</h3>
+                    <p>هياكل البيانات (القوائم وصفوف البيانات)، المكتبات البرمجية، وبناء الواجهات[cite: 130, 131].</p>
+                    <ul>
+                        <li><strong>الدرس الأول:</strong> القوائم وصفوف البيانات[cite: 130]</li>
+                        <a href="https://youtu.be/JP61Q-YxoyE?si=lSr3yJDsFjgPgGJN" class="video-link" target="_blank">📺 مشاهدة شرح الدرس الأول</a>
+                        <li><strong>الدرس الثاني:</strong> المكتبات البرمجية القياسية والاضافية</li>
+                        <a href="https://youtu.be/Z7pdpOFGFa4?si=p5sHbSArcF7VtlZM" class="video-link" target="_blank">📺 مشاهدة شرح الدرس الثاني</a>
+                        <li><strong>الدرس الثالث:</strong> بناء الواجهات الرسومية ($Tkinter$)[cite: 131]</li>
+                        <a href="https://youtu.be/4MNHkuO1fao?si=1d6G87X1YbcTnO0H" class="video-link" target="_blank">📺 مشاهدة شرح الدرس الثالث</a>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- الفصل الدراسي الثاني -->
+        <h2 class="semester-title">💻 الفصل الدراسي الثاني</h2>
+        <div class="units-grid">
+
+            <!-- الوحدة الأولى: التجارة الإلكترونية -->
+            <div class="unit-card" style="border-top-color: #20c997;">
+                <div>
+                    <h3>الوحدة الأولى: التجارة الإلكترونية</h3>
+                    <p>نماذج التجارة الإلكترونية ($B2B, B2C, C2C$) والتعاملات الرقمية الآمنة[cite: 220].</p>
+                    <ul>
+                        <li><strong>الدرس الأول:</strong> مقدمة في التجارة الإلكترونية[cite: 220]</li>
+                        <a href="https://youtu.be/MZBEB5HC0ig?si=DVFKehu9SLqWvUIH" class="video-link" target="_blank">📺 مشاهدة شرح الدرس الأول</a>
+                        <li><strong>الدرس الثاني:</strong> التعاملات وطرق الدفع عبر الإنترنت[cite: 232, 233]</li>
+                        <a href="https://youtu.be/zfIVZPD-HfY?si=DYIdJosbSzpKKVcd" class="video-link" target="_blank">📺 مشاهدة شرح الدرس الثاني</a>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- الوحدة الثانية: البرمجة بلغة بايثون (2) -->
+            <div class="unit-card" style="border-top-color: #6f42c1;">
+                <div>
+                    <h3>الوحدة الثانية: البرمجة المتقدمة (باييثون)</h3>
+                    <p>استخدام القواميس، القوائم المتداخلة، والتعامل البرمجي مع الملفات النصية[cite: 131].</p>
+                    <ul>
+                        <li><strong>الدرس الأول:</strong> القواميس وهياكلها[cite: 131]</li>
+                        <a href="https://youtu.be/Gx60SxSi-p4?si=JNdmEtScQ2LwYKTm" class="video-link" target="_blank">📺 مشاهدة شرح الدرس الأول</a>
+                        <li><strong>الدرس الثاني:</strong> القوائم المتداخلة والمصفوفات</li>
+                        <a href="https://youtu.be/SML3rHygJPY?si=lHFcl2wzS6ZczCPX" class="video-link" target="_blank">📺 مشاهدة شرح الدرس الثاني</a>
+                        <li><strong>الدرس الثالث:</strong> التعامل مع الملفات النصية ($TXT$)[cite: 131]</li>
+                        <a href="https://youtu.be/R6HNVETTKCA?si=vzyUVNmJPUH83Xg9" class="video-link" target="_blank">📺 مشاهدة شرح الدرس الثالث</a>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة - منصة نحو القمة الرقمية © 2026</p>
+    </footer>
+
+</body>
+</html>
